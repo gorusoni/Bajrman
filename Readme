@@ -1,0 +1,142 @@
+Nice project — this is a cool safety concept even for an RC car. Here’s a clean **README** you can use for your build. You can copy-paste this into a `README.md` file.
+
+---
+
+# 🚗 Smart RC Car Seatbelt Safety System
+
+## 📌 Project Overview
+
+This project adds a **seatbelt detection safety system** to an RC car. The car monitors whether the “driver” (seat occupant) is wearing the seatbelt correctly.
+
+If the seatbelt is:
+
+* ✅ Properly fastened → Car runs at full speed
+* ⚠️ Not fastened / worn incorrectly → Car speed is restricted
+
+The goal is to simulate **real vehicle safety logic** in a small-scale RC platform.
+
+---
+
+## 🎯 Features
+
+* Seatbelt fastening detection
+* Speed control based on safety status
+* Real-time response while driving
+* Expandable for alerts (buzzer, LED, app notification)
+
+---
+
+## 🧠 How It Works
+
+Sensors placed on the seatbelt detect whether it is properly connected or under tension. The microcontroller reads this data and adjusts the motor speed accordingly.
+
+**Logic Flow:**
+
+1. System powers on
+2. Seatbelt sensor checks status
+3. If belt = **secure** → Normal speed
+4. If belt = **loose / open** → Speed limited
+5. System keeps monitoring continuously
+
+---
+
+## 🧩 Components Required
+
+| Component                         | Purpose             |
+| --------------------------------- | ------------------- |
+| RC Car Chassis                    | Base vehicle        |
+| Microcontroller (ESP32 / Arduino) | Main controller     |
+| Motor Driver (L298N or similar)   | Controls car motors |
+| Seatbelt Sensor (options below)   | Detects belt status |
+| Battery Pack                      | Power supply        |
+| Connecting Wires                  | Circuit connections |
+
+### 🔍 Seatbelt Sensor Options
+
+You can use any of these:
+
+* **Magnetic Reed Switch** → Detects buckle connection
+* **Push Button Switch** → Triggered when belt is locked
+* **Force Sensitive Resistor (FSR)** → Detects belt tension
+* **Limit Switch** → Mechanical belt press detection
+
+---
+
+## 🔌 Wiring Overview
+
+**Basic Connections:**
+
+* Seatbelt Sensor → Digital Input Pin
+* Motor Driver IN Pins → Microcontroller Output Pins
+* Motor Driver EN Pin → PWM Pin (for speed control)
+* Battery → Motor Driver + Microcontroller (via regulator if needed)
+
+---
+
+## 💻 Control Logic (Pseudo Code)
+
+```
+Read seatbeltSensor
+
+IF seatbeltSensor == FASTENED
+    Set motorSpeed = FULL_SPEED
+ELSE
+    Set motorSpeed = LIMITED_SPEED
+END IF
+```
+
+---
+
+## ⚙️ Speed Limiting Method
+
+Speed is controlled using **PWM (Pulse Width Modulation)**.
+
+| Condition         | PWM Value | Result                  |
+| ----------------- | --------- | ----------------------- |
+| Belt Fastened     | 200–255   | Full speed              |
+| Belt Not Fastened | 80–120    | Slow / restricted speed |
+
+---
+
+## ▶️ How to Use
+
+1. Power on the RC car
+2. Fasten the seatbelt properly
+3. Drive normally at full speed
+4. Unfasten or loosen the belt → car slows down automatically
+
+---
+
+## 🔔 Optional Enhancements
+
+You can improve the project by adding:
+
+* 🔊 Buzzer warning when belt is not fastened
+* 💡 Red/Green LED safety indicator
+* 📱 Mobile app showing seatbelt status (via Bluetooth ESP32)
+* 📊 Data logging for safety monitoring
+
+---
+
+## 🚀 Future Scope
+
+* Multiple seat detection
+* Crash detection using accelerometer
+* Automatic braking instead of only speed limiting
+* Integration with real car safety education kits
+
+---
+
+## 👨‍🔧 Author
+
+**Gourav Soni**
+Smart RC Car Safety System Project
+
+---
+
+If you want, I can next help you with:
+
+* Circuit diagram
+* Arduino/ESP32 code
+* Mobile app interface for monitoring
+
