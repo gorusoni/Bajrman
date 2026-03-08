@@ -1,142 +1,207 @@
-Nice project — this is a cool safety concept even for an RC car. Here’s a clean **README** you can use for your build. You can copy-paste this into a `README.md` file.
+BAJRMAN – Smart Car SeatBelt Safety System
 
----
+A Smart Seatbelt Safety System for an RC Car that restricts vehicle speed when the seatbelt is worn incorrectly.
 
-# 🚗 Smart RC Car Seatbelt Safety System
+The system uses ESP32, Capacitive Touch Sensors, Blynk IoT, and a Wireless Relay Module to simulate a real-world automotive safety mechanism where vehicle performance is limited if the seatbelt is not secured properly.
 
-## 📌 Project Overview
+Project Concept
 
-This project adds a **seatbelt detection safety system** to an RC car. The car monitors whether the “driver” (seat occupant) is wearing the seatbelt correctly.
+This project demonstrates a vehicle safety logic:
 
-If the seatbelt is:
+Seatbelt secured → Full speed allowed
 
-* ✅ Properly fastened → Car runs at full speed
-* ⚠️ Not fastened / worn incorrectly → Car speed is restricted
+Seatbelt not secured → Speed restricted
 
-The goal is to simulate **real vehicle safety logic** in a small-scale RC platform.
+The ESP32 reads capacitive touch sensors placed on the seatbelt system.
+Based on the detected pattern, the ESP32:
 
----
+Updates the Blynk IoT dashboard
 
-## 🎯 Features
+Sends a signal to a wireless relay remote
 
-* Seatbelt fastening detection
-* Speed control based on safety status
-* Real-time response while driving
-* Expandable for alerts (buzzer, LED, app notification)
+Changes the relay state (NC / NO) to restrict speed.
 
----
+System Architecture
+Seatbelt Touch Sensors
+        │
+        ▼
+      ESP32
+        │
+ ┌──────┴────────┐
+ ▼               ▼
+Blynk IoT    Wireless Relay
+Dashboard        Remote
+                    │
+                    ▼
+                Relay (NC/NO)
+                    │
+                    ▼
+                RC Car Motor
+Voltage Regulation
 
-## 🧠 How It Works
+The RC system uses higher voltage than the control electronics.
 
-Sensors placed on the seatbelt detect whether it is properly connected or under tension. The microcontroller reads this data and adjusts the motor speed accordingly.
+A Buck Converter is used to:
 
-**Logic Flow:**
+Reduce voltage
 
-1. System powers on
-2. Seatbelt sensor checks status
-3. If belt = **secure** → Normal speed
-4. If belt = **loose / open** → Speed limited
-5. System keeps monitoring continuously
+Stabilize power supply
 
----
+Protect ESP32 and relay module
 
-## 🧩 Components Required
+Hardware Components
 
-| Component                         | Purpose             |
-| --------------------------------- | ------------------- |
-| RC Car Chassis                    | Base vehicle        |
-| Microcontroller (ESP32 / Arduino) | Main controller     |
-| Motor Driver (L298N or similar)   | Controls car motors |
-| Seatbelt Sensor (options below)   | Detects belt status |
-| Battery Pack                      | Power supply        |
-| Connecting Wires                  | Circuit connections |
+ESP32
 
-### 🔍 Seatbelt Sensor Options
+4 × TTP223 Capacitive Touch Sensors
 
-You can use any of these:
+Wireless Relay Module
 
-* **Magnetic Reed Switch** → Detects buckle connection
-* **Push Button Switch** → Triggered when belt is locked
-* **Force Sensitive Resistor (FSR)** → Detects belt tension
-* **Limit Switch** → Mechanical belt press detection
+Buck Converter
 
----
+RC Car Motor System
 
-## 🔌 Wiring Overview
+Lithium Battery / Power Supply
 
-**Basic Connections:**
+Relay (NO / NC control)
 
-* Seatbelt Sensor → Digital Input Pin
-* Motor Driver IN Pins → Microcontroller Output Pins
-* Motor Driver EN Pin → PWM Pin (for speed control)
-* Battery → Motor Driver + Microcontroller (via regulator if needed)
+Seatbelt Detection Logic
 
----
+Four capacitive sensors simulate seatbelt connection points.
 
-## 💻 Control Logic (Pseudo Code)
+Sensor Combination	Condition	Result
+C1 + C3	Correct belt	Full speed
+C2 + C4	Correct belt	Full speed
+Any other combination	Incorrect belt	Speed limited
 
-```
-Read seatbeltSensor
+If the belt is worn incorrectly:
 
-IF seatbeltSensor == FASTENED
-    Set motorSpeed = FULL_SPEED
-ELSE
-    Set motorSpeed = LIMITED_SPEED
-END IF
-```
+ESP32 triggers relay NO state
 
----
+Vehicle enters restricted speed mode
 
-## ⚙️ Speed Limiting Method
+Blynk IoT Integration
 
-Speed is controlled using **PWM (Pulse Width Modulation)**.
+The system is connected to Blynk IoT platform for monitoring.
 
-| Condition         | PWM Value | Result                  |
-| ----------------- | --------- | ----------------------- |
-| Belt Fastened     | 200–255   | Full speed              |
-| Belt Not Fastened | 80–120    | Slow / restricted speed |
+Features
 
----
+Real-time seatbelt sensor monitoring
 
-## ▶️ How to Use
+Live belt status indicator
 
-1. Power on the RC car
-2. Fasten the seatbelt properly
-3. Drive normally at full speed
-4. Unfasten or loosen the belt → car slows down automatically
+Remote vehicle status display
 
----
+Cloud-based IoT dashboard
 
-## 🔔 Optional Enhancements
+Virtual Pins Used
+Virtual Pin	Function
+V0	Sensor C1
+V1	Sensor C2
+V2	Sensor C3
+V3	Sensor C4
 
-You can improve the project by adding:
+The Blynk dashboard shows:
 
-* 🔊 Buzzer warning when belt is not fastened
-* 💡 Red/Green LED safety indicator
-* 📱 Mobile app showing seatbelt status (via Bluetooth ESP32)
-* 📊 Data logging for safety monitoring
+Sensor activation
 
----
+Seatbelt secured status
 
-## 🚀 Future Scope
+System connection status
 
-* Multiple seat detection
-* Crash detection using accelerometer
-* Automatic braking instead of only speed limiting
-* Integration with real car safety education kits
+Software Components
 
----
+The project includes both ESP32 firmware and a web simulation interface.
 
-## 👨‍🔧 Author
+Files
+File	Purpose
+BAJRMAN.html	Main web interface
+style.css	UI styling
+script.js	Logic and simulation
+touch.ino	ESP32 firmware
+Web Interface Features
 
-**Gourav Soni**
-Smart RC Car Safety System Project
+The interface simulates the real system behavior.
 
----
+Seatbelt Sensor Simulation
 
-If you want, I can next help you with:
+Buttons represent the capacitive sensors:
 
-* Circuit diagram
-* Arduino/ESP32 code
-* Mobile app interface for monitoring
+C1   C2   C3   C4
 
+Indicator lights:
+
+Green Light → Seatbelt secured
+
+Red Light → Seatbelt not secured
+
+RC Car Controller
+
+Control buttons:
+
+Forward
+
+Backward
+
+Left
+
+Right
+
+Stop
+
+Speed Restriction System
+Seatbelt Status	Allowed Speed
+Secured	100%
+Not Secured	35%
+
+A speedometer bar visually displays the speed restriction.
+
+ESP32 Working Logic
+
+ESP32 performs the following tasks:
+
+Reads input from touch sensors
+
+Detects seatbelt pattern
+
+Updates Blynk IoT dashboard
+
+Sends signal to wireless relay remote
+
+Relay switches between NC and NO state
+
+Car speed is restricted when belt is incorrect
+
+Safety Logic
+Correct Seatbelt
+        ↓
+Relay NC State
+        ↓
+Full Speed Mode
+
+Incorrect Seatbelt
+        ↓
+Relay NO State
+        ↓
+Restricted Speed Mode
+Future Improvements
+
+Possible upgrades for this project:
+
+Mobile control app
+
+Real-time speed sensor
+
+Seatbelt warning buzzer
+
+GPS tracking
+
+Advanced Blynk dashboard
+
+AI-based driver monitoring
+
+Author
+
+Gourav Soni
+
+Project: BAJRMAN
