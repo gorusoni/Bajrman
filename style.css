@@ -1,0 +1,90 @@
+body{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f6f9;
+}
+
+h2{
+    color:#333;
+}
+
+hr{
+    margin:30px 0;
+}
+
+/* Seatbelt Buttons */
+.touch{
+    width:90px;
+    height:45px;
+    border:none;
+    border-radius:20px;
+    margin:8px;
+    font-size:16px;
+    cursor:pointer;
+    color:white;
+    background-color:#e74c3c;
+    transition:0.3s;
+}
+
+.touch:hover{
+    transform:scale(1.05);
+}
+
+.touch_on{
+    background-color:#27ae60 !important;
+}
+
+/* RC Controller Buttons */
+.control{
+    width:90px;
+    height:50px;
+    margin:6px;
+    font-size:14px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#3498db;
+    color:white;
+    transition:0.2s;
+}
+
+.control:hover{
+    background:#2980b9;
+}
+
+/* Status Lights */
+.light{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:inline-block;
+    margin-left:10px;
+    background-color:gray;
+}
+
+/* Speedometer */
+#speedometer{
+    width:220px;
+    height:25px;
+    margin:15px auto;
+    background:#ddd;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+#speedBar{
+    height:100%;
+    width:0%;
+    background:limegreen;
+    transition:width 0.3s;
+}
+
+#speedText{
+    margin-top:5px;
+}
+
+#statusText{
+    font-weight:bold;
+    margin-top:10px;
+    font-size:16px;
+}
